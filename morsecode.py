@@ -215,9 +215,6 @@ def decoding_character(morse_character):
     for alphabet, morse_code in morse_code_dict.items():
         if morse_character == morse_code:
             return alphabet
-    
-
-    
     # ==================================
 
 
