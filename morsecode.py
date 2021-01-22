@@ -143,6 +143,9 @@ def is_validated_morse_code(user_input):
     temp = temp.split()
     morse_code = get_morse_code_dict()
 
+    if len(temp) == 0:
+        return False
+    
     for i in temp:
         if not i in morse_code.values():
             return False
@@ -329,10 +332,11 @@ def main():
     # ===Modify codes below=============
     while True:
         input_data = input("Input your message(H = Help, 0 - Exit) : ")
-        if input_data == 0:
+        if input_data == '0':
             break
         elif is_help_command(input_data):
             print(get_help_message())
+            break
         elif is_validated_english_sentence(input_data):
             print(encoding_sentence(input_data))
         elif is_validated_morse_code(input_data):
