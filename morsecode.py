@@ -51,7 +51,7 @@ def is_help_command(user_input):
     """
     # ===Modify codes below=============
     # 조건에 따라 변환되어야 할 결과를 result 변수에 할당 또는 필요에 따라 자유로운 수정
-    if (user_input.lower == 'h') or (user_input.lower == 'help'):
+    if (user_input.lower() == 'h') or (user_input.lower() == 'help'):
         result = True
     else:
         result = False
@@ -137,7 +137,7 @@ def is_validated_morse_code(user_input):
     temp = user_input.strip()
 
     for i in temp:
-        if not i in '._ ':
+        if not i in '.- ':
             return False
 
     temp = temp.split()
@@ -177,7 +177,7 @@ def get_cleaned_english_sentence(raw_english_sentence):
     ok = '!?,.'
 
     for i in ok:
-        temp.remove(i, '')
+        temp = temp.replace(i, '')
     
     result = temp
 
@@ -211,7 +211,7 @@ def decoding_character(morse_character):
     morse_code_dict = get_morse_code_dict()
     temp = morse_character
 
-    for i in morse_code_dict.key():
+    for i in morse_code_dict.keys():
         if morse_code_dict[i] == temp:
             result = i
     
@@ -277,10 +277,10 @@ def decoding_sentence(morse_sentence):
     temp = morse_sentence.split(' ')
     result = ''
     for i in temp:
-        if ecoding_character(i) == '':
-            result.append(' ')
+        if decoding_character(i) == '':
+            result += ' '
         else:
-            result.appendd(decoding_character(i))
+            result += decoding_character(i)
 
     return result
     # ==================================
@@ -308,12 +308,14 @@ def encoding_sentence(english_sentence):
     # 조건에 따라 변환되어야 할 결과를 result 변수에 할당 또는 필요에 따라 자유로운 수정
     temp = get_cleaned_english_sentence(english_sentence).upper()
     temp = ' '.join(temp.split())
+    print(temp)
     result = ''
     for i in temp:
         if i == ' ':
-            result.append('  ')
+            result += ' '
         else:
-            result.append(encoding_character(i) + ' ')
+            result += (encoding_character(i) + ' ')
+            
     
     result = result.strip()
 
@@ -330,7 +332,7 @@ def main():
         if input_data == 0:
             break
         elif is_help_command(input_data):
-            get_help_message()
+            print(get_help_message())
         elif is_validated_english_sentence(input_data):
             print(encoding_sentence(input_data))
         elif is_validated_morse_code(input_data):
